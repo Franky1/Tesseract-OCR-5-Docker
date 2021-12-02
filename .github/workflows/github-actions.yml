@@ -1,0 +1,70 @@
+name: GitHub Actions
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  Explore-GitHub:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
+  Linter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Lint Code Base
+        uses: github/super-linter/slim@v4
+        env:
+          DEFAULT_BRANCH: main
+          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_MARKDOWN: true
+          VALIDATE_GITHUB_ACTIONS: true
+          VALIDATE_DOCKERFILE: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  Docker-Build-Push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+
+      - name: Build the Docker Image
+        run: docker build . --file Dockerfile --tag franky1/tesseract:latest
+
+      - name: Run the Docker Container
+        run: docker run --name tesseract --rm franky1/tesseract:latest
+
+      - name: Test the Docker Container
+        run: docker run --name tesseract -v ${PWD}/testdata:/tmp --rm franky1/tesseract:latest tesseract testocr.png output --oem 1 -l eng
+
+      # - name: Push Docker Image
+      #   uses: mr-smithers-excellent/docker-build-push@v5
+      #   with:
+      #     image: franky1/tesseract
+      #     tags: latest
+      #     registry: docker.io
+      #     username: ${{ secrets.DOCKER_USERNAME }}
+      #     password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # - name: Docker Hub Description
+      #   uses: peter-evans/dockerhub-description@v2
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USERNAME }}
+      #     password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      #     repository: franky1/tesseract
+      #     short-description: ${{ github.event.repository.description }}
+      #     readme-filepath: ./Docker-Hub-Description.md
