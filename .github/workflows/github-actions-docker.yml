@@ -23,4 +23,4 @@ jobs:
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag franky1/tesseract:latest
     - name: Run the Docker image
-      run: docker run -it --name tesseract --rm franky1/tesseract:latest
+      run: docker run --name tesseract --rm franky1/tesseract:latest

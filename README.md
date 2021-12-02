@@ -21,10 +21,15 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm tesseract tesseract
 - [ ] Add more documentation
 - [ ] Make Docker Hub project
 - [ ] Add GitHub Actions for CI/CD
-  - [ ] Run linter
+  - [ ] Add linter
+    - <https://github.com/marketplace/actions/super-linter>
   - [ ] Build Docker image from Dockerfile
-  - [ ] Test Docker image with test image
+  - [ ] Test Docker image with test ocr image
   - [ ] Push Docker image to Docker Hub
+    - <https://github.com/marketplace/actions/docker-push>
+    - <https://github.com/marketplace/actions/docker-build-push-action>
+  - [ ] Add Docker Hub description
+    - <https://github.com/marketplace/actions/docker-hub-description>
 
 ## Project status
 
