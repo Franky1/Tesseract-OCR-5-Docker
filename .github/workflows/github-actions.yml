@@ -17,6 +17,7 @@ jobs:
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+      - run: echo "🔎 The user and password for docker hub is ${{ secrets.DOCKERHUB_USERNAME }} and ${{ secrets.DOCKERHUB_TOKEN }}."
 
   Linter:
     needs: Explore-GitHub
@@ -24,8 +25,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
 
       - name: Lint Code Base
         uses: github/super-linter/slim@v4
@@ -43,8 +42,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
 
       - name: Build the Docker Image
         run: docker build . --file Dockerfile --tag franky1/tesseract:latest
