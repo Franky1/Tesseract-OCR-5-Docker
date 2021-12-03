@@ -17,7 +17,8 @@ RUN apt-get update && apt-get install --no-install-recommends --yes \
     make \
     pkg-config \
     wget \
-    xsltproc
+    xsltproc \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /src
 

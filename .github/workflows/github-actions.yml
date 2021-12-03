@@ -19,6 +19,7 @@ jobs:
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
 
   Linter:
+    needs: Explore-GitHub
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -37,6 +38,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   Docker-Build-Test-Push:
+    needs: Linter
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -51,7 +53,7 @@ jobs:
         run: docker run --name tesseract --rm franky1/tesseract:latest
 
       - name: Test the Docker Container
-        run: docker run --name tesseract -v ${PWD}/testdata:/tmp --rm franky1/tesseract:latest tesseract testocr.png output --oem 1 -l eng
+        run: docker run --name tesseract -v ${PWD}/testdata:/tmp --rm franky1/tesseract:latest "tesseract testocr.png output --oem 1 -l eng"
 
       # - name: Set up Docker Buildx
       #   uses: docker/setup-buildx-action@v1
