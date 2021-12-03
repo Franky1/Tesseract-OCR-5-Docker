@@ -19,7 +19,7 @@ jobs:
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
 
   Linter:
-    needs: Explore-GitHub
+    needs: Explore
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
