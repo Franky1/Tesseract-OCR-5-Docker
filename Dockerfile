@@ -48,4 +48,4 @@ CMD ["tesseract", "--list-langs"]
 # docker build -t tesseract .
 # docker run -it --name tesseract --rm tesseract /bin/bash
 # docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm tesseract /bin/bash
-# docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm tesseract tesseract testocr.png output --oem 1 -l eng
+# docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm tesseract tesseract english.png output --oem 1 -l eng
