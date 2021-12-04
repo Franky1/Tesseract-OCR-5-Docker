@@ -2,6 +2,8 @@
 
 Docker Image with latest Tesseract OCR Version 5.x.x built from sources.
 
+Docker Hub: <https://hub.docker.com/repository/docker/franky1/tesseract>
+
 ## Usage
 
 ### Pull Docker Image
@@ -84,7 +86,7 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm tesseract tesseract
 
 ## Project status
 
-> 03.12.2021: Work in progress, but docker image is ready for usage.
+> 04.12.2021: Work in progress, but docker image is ready for usage.
 
 ## ToDo
 
