@@ -63,7 +63,7 @@ docker run -it -v ${PWD}/testdata:/tmp \
   - German: `tessdata_best > deu.traineddata`
   - If you need other languages, you have to build your own image or mount trained data to the `/usr/local/share/tessdata/` directory. See example above.
 
-## Tesseract Trained Data for all available langauges
+## Tesseract Trained Data for all available languages
 
 - Overview of supported languages <https://tesseract-ocr.github.io/tessdoc/Data-Files-in-different-versions.html>
 - Trained models with support for legacy and LSTM OCR engine <https://github.com/tesseract-ocr/tessdata>
