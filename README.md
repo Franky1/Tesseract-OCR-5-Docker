@@ -2,7 +2,7 @@
 
 Docker Image with latest Tesseract OCR Version 5.x.x built from sources.
 
-Docker Hub: <https://hub.docker.com/repository/docker/franky1/tesseract>
+Docker Hub: <https://hub.docker.com/r/franky1/tesseract>
 
 ## Usage
 
@@ -108,4 +108,4 @@ If you have any bugs or requests regarding this Docker image, please post an iss
 
 ## Project status
 
-> 05.12.2021: Work in progress, but docker image is ready for usage.
+> 05.12.2021: Work in progress, but docker image is ready for usage

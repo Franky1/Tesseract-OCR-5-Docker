@@ -16,7 +16,9 @@ docker pull franky1/tesseract
 
 ### Run Docker Container
 
-> see GitHub Repository for better understanding of the steps below
+```text
+see GitHub Repository for better understanding of the steps below
+```
 
 Mount your image data to the `/tmp` directory and run Tesseract OCR container with the required command line options, for example, run Tesseract OCR container with test image:
 
@@ -28,7 +30,9 @@ For the Tesseract command line options, please refer to the [Tesseract Manual](h
 
 ### Mount more languages
 
-> see GitHub Repository for better understanding of the steps below
+```text
+see GitHub Repository for better understanding of the steps below
+```
 
 Test if the mounted languages from your local subfolder `/tessdata` are available in the Docker container.
 Be aware that the local languages overwrite the installed languages in the Docker image. Example here with french language:
@@ -80,4 +84,6 @@ If you have any bugs or requests regarding this Docker image, please post an iss
 
 ## Project status
 
-> 05.12.2021: Work in progress, but docker image is ready for usage.
+```text
+05.12.2021: Work in progress, but docker image is ready for usage
+```
