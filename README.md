@@ -92,7 +92,7 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm tesseract tesseract
 - [ ] Add vulnerability scanning in Github Actions:
   - [x] Snyk
   - [x] Anchore Container Scan
-  - [ ] Trivy
+  - [x] Trivy
 - [ ] Add badges to `README.md`
 - [ ] Build Tesseract from release version instead of the main trunk version!
 - [ ] Improve GitHub Action to automatically tag the image according to Tesseract Release version

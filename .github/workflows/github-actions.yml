@@ -68,16 +68,38 @@ jobs:
         with:
           image: franky1/tesseract
           args: --file=Dockerfile
-      - name: Upload result to GitHub Code Scanning
+
+      - name: Upload Snyk result to GitHub Code Scanning
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: snyk.sarif
 
-      - name: Scan image
+      - name: Scan image with Anchore
+        id: scan
         uses: anchore/scan-action@v3
         with:
           image: "franky1/tesseract:latest"
           fail-build: false
+          acs-report-enable: true
+
+      - name: Upload Anchore result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: ${{ steps.scan.outputs.sarif }}
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'franky1/tesseract:latest'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v1
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
