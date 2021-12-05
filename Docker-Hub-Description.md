@@ -2,6 +2,8 @@
 
 Docker Image with latest Tesseract OCR Version 5.x.x built from sources.
 
+GitHub Repository: <https://github.com/Franky1/Tesseract-OCR-5-Docker>
+
 ## Usage
 
 ### Pull Docker Image
@@ -14,6 +16,8 @@ docker pull franky1/tesseract
 
 ### Run Docker Container
 
+> see GitHub Repository for better understanding of the steps below
+
 Mount your image data to the `/tmp` directory and run Tesseract OCR container with the required command line options, for example, run Tesseract OCR container with test image:
 
 ```bash
@@ -23,6 +27,8 @@ docker run -it -v ${PWD}/testdata:/tmp --rm franky1/tesseract tesseract english.
 For the Tesseract command line options, please refer to the [Tesseract Manual](https://tesseract-ocr.github.io/tessdoc/)
 
 ### Mount more languages
+
+> see GitHub Repository for better understanding of the steps below
 
 Test if the mounted languages from your local subfolder `/tessdata` are available in the Docker container.
 Be aware that the local languages overwrite the installed languages in the Docker image. Example here with french language:
@@ -71,3 +77,7 @@ docker run -it -v ${PWD}/testdata:/tmp \
 
 If you have any bugs or requests regarding this Docker image, please post an issue in the Github Repository:
 <https://github.com/Franky1/Tesseract-OCR-5-Docker>
+
+## Project status
+
+> 05.12.2021: Work in progress, but docker image is ready for usage.

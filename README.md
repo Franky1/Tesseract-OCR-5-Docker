@@ -84,24 +84,19 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm tesseract tesseract
 - Original Tesseract Manual: <https://tesseract-ocr.github.io/tessdoc/>
 - More `tessdata_best` languages: <https://github.com/tesseract-ocr/tessdata_best>
 
-## Project status
-
-> 04.12.2021: Work in progress, but docker image is ready for usage.
-
 ## ToDo
 
 - [ ] Add more documentation to `README.md`
 - [ ] Add more documentation to `Docker-Hub-Description.md`
-- [ ] Add dependabot on Github?
+- [x] Add dependabot on Github
 - [ ] Add vulnerability scanning in Github Actions:
   - [x] Snyk
-  - [ ] Anchore Container Scan
+  - [x] Anchore Container Scan
   - [ ] Trivy
 - [ ] Add badges to `README.md`
 - [ ] Build Tesseract from release version instead of the main trunk version!
 - [ ] Improve GitHub Action to automatically tag the image according to Tesseract Release version
 - [ ] Add more languages by default?
-- [x] Mount tessdata folder to add more languages?
 - [ ] Building Tesseract with TensorFlow?
 - [ ] Building Tesseract with Training tools?
 - [ ] Add AWS Lambda function to check original repo for new releases and trigger Github Action?
@@ -110,3 +105,7 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm tesseract tesseract
 ## Issues
 
 If you have any bugs or requests regarding this Docker image, please post an issue in this Github Repository.
+
+## Project status
+
+> 05.12.2021: Work in progress, but docker image is ready for usage.
