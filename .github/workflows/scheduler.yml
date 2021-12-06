@@ -1,0 +1,13 @@
+name: Trigger Site Rebuild on a CRON Schedule
+
+on:
+  schedule:
+    # Runs "at 04:04 every day" (see https://crontab.guru)
+    - cron: '4 4 * * *'
+jobs:
+  build:
+    name: Check Python Version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: python --version
