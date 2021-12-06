@@ -2,6 +2,8 @@
 
 Docker Image with latest Tesseract OCR Version 5.x.x built from sources.
 
+The sources are pulled from the latest `main` branch of the [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) project.
+
 GitHub Repository: <https://github.com/Franky1/Tesseract-OCR-5-Docker>
 
 ## Usage
@@ -23,7 +25,8 @@ see GitHub Repository for better understanding of the steps below
 Mount your image data to the `/tmp` directory and run Tesseract OCR container with the required command line options, for example, run Tesseract OCR container with test image:
 
 ```bash
-docker run -it -v ${PWD}/testdata:/tmp --rm franky1/tesseract tesseract english.png output --oem 1 -l eng
+docker run -it -v ${PWD}/testdata:/tmp --rm franky1/tesseract \
+  tesseract english.png output --oem 1 -l eng
 ```
 
 For the Tesseract command line options, please refer to the [Tesseract Manual](https://tesseract-ocr.github.io/tessdoc/)
@@ -85,5 +88,5 @@ If you have any bugs or requests regarding this Docker image, please post an iss
 ## Project status
 
 ```text
-05.12.2021: Work in progress, but docker image is ready for usage
+06.12.2021: Work in progress, but docker image is ready for usage
 ```

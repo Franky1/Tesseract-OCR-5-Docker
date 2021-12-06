@@ -2,6 +2,8 @@
 
 Docker Image with latest Tesseract OCR Version 5.x.x built from sources.
 
+The sources are pulled from the latest `main` branch of the [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) project.
+
 Docker Hub: <https://hub.docker.com/r/franky1/tesseract>
 
 ## Usage
@@ -19,7 +21,8 @@ docker pull franky1/tesseract
 Mount your image data to the `/tmp` directory and run Tesseract OCR container with the required command line options, for example, run Tesseract OCR container with test image:
 
 ```bash
-docker run -it -v ${PWD}/testdata:/tmp --rm franky1/tesseract tesseract english.png output --oem 1 -l eng
+docker run -it -v ${PWD}/testdata:/tmp --rm franky1/tesseract
+  tesseract english.png output --oem 1 -l eng
 ```
 
 For the Tesseract command line options, please refer to the [Tesseract Manual](https://tesseract-ocr.github.io/tessdoc/)
@@ -55,7 +58,8 @@ docker build --tag tesseract .
 Run Tesseract OCR container with test image:
 
 ```bash
-docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm tesseract tesseract english.png output --oem 1 -l eng
+docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
+  tesseract tesseract english.png output --oem 1 -l eng
 ```
 
 ## Image conditions
@@ -86,8 +90,6 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm tesseract tesseract
 
 ## ToDo
 
-- [ ] Add more documentation to `README.md`
-- [ ] Add more documentation to `Docker-Hub-Description.md`
 - [x] Add dependabot on Github
 - [ ] Add vulnerability scanning in Github Actions:
   - [x] Snyk
@@ -108,4 +110,4 @@ If you have any bugs or requests regarding this Docker image, please post an iss
 
 ## Project status
 
-> 05.12.2021: Work in progress, but docker image is ready for usage
+> 06.12.2021: Work in progress, but docker image is ready for usage
