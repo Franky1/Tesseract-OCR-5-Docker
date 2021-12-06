@@ -17,6 +17,8 @@ jobs:
   Explore:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
       - run: python --version
       - run: pip install --upgrade PyGithub
       - run: python versioncheck.py
