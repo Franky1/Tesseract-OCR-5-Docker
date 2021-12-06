@@ -21,7 +21,7 @@ docker pull franky1/tesseract
 Mount your image data to the `/tmp` directory and run Tesseract OCR container with the required command line options, for example, run Tesseract OCR container with test image:
 
 ```bash
-docker run -it -v ${PWD}/testdata:/tmp --rm franky1/tesseract
+docker run -it -v ${PWD}/testdata:/tmp --rm franky1/tesseract \
   tesseract english.png output --oem 1 -l eng
 ```
 
@@ -101,7 +101,7 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
 - [ ] Add more languages by default?
 - [ ] Building Tesseract with TensorFlow?
 - [ ] Building Tesseract with Training tools?
-- [ ] Add AWS Lambda function to check original repo for new releases and trigger Github Action?
+- [ ] Add scheduler to check original repo for new releases and trigger Github Action?
 - [ ] Build image for more targets?
 
 ## Issues

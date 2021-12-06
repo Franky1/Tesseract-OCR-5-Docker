@@ -1,0 +1,17 @@
+name: Test Python
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  Explore:
+    runs-on: ubuntu-latest
+    steps:
+      - run: python --version
