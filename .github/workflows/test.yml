@@ -1,5 +1,8 @@
 name: Test Python
 
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 on:
   push:
     branches:
@@ -15,3 +18,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: python --version
+      - run: pip install --upgrade PyGithub
+      - run: python versioncheck.py
