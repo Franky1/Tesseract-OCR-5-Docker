@@ -1,14 +1,15 @@
 name: Docker Hub
 
 on:
-  push:
-    branches:
-      - main
-      - master
-  pull_request:
-    branches:
-      - main
-      - master
+  schedule:
+    # Runs "at 05:05 every day" (see https://crontab.guru)
+    - cron: '5 5 * * *'
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
+  #   branches:
+  #     - main
 
 jobs:
   Explore:

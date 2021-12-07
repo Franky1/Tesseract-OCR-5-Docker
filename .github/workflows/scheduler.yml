@@ -2,6 +2,8 @@ name: Test Python and Scheduler
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  UPDATE_MAIN: False
+  UPDATE_RELEASE: False
 
 on:
   schedule:
@@ -23,3 +25,5 @@ jobs:
       - run: python --version
       - run: pip install --upgrade PyGithub
       - run: python versioncheck.py
+      - run: echo "Main ${{ env.UPDATE_MAIN }}"
+      - run: echo "Release ${{ env.UPDATE_RELEASE }}"
