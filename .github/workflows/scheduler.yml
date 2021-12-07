@@ -1,7 +1,7 @@
 name: Test Python and Scheduler
 
-env:
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+# env:
+  # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   # UPDATE_MAIN: False
   # UPDATE_RELEASE: False
 
@@ -22,8 +22,19 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
-      - run: python --version
-      - run: pip install --upgrade PyGithub
-      - run: python versioncheck.py
-      - run: test -f UPDATE_MAIN && echo "$FILE exists."
-      - run: test -f UPDATE_RELEASE && echo "$FILE exists."
+      - name: Show Python Version
+        run: python --version
+      - name: Install PyGithub
+        run: pip install --upgrade PyGithub
+      - name: Run python script to check for updates
+        run: python versioncheck.py
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: run job for main branch
+        if: "test -f UPDATE_MAIN"
+        run: echo "UPDATE_MAIN necessary"
+        # uses: ./.github/workflows/build-main.yml
+      - name: run job for release
+        if: "test -f UPDATE_RELEASE"
+        run: echo "UPDATE_RELEASE necessary"
+        # uses: ./.github/workflows/build-release.yml

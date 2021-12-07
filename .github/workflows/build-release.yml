@@ -1,0 +1,14 @@
+name: Build Release
+
+on:
+  workflow_call:
+    branches:
+      - main
+
+jobs:
+  example_job:
+    name: Generate output
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test1
+        run: echo "Test1"
