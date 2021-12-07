@@ -31,10 +31,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: run job for main branch
-        if: "test -f UPDATE_MAIN"
+        if: hashFiles('UPDATE_MAIN') != ''
         run: echo "UPDATE_MAIN necessary"
         # uses: ./.github/workflows/build-main.yml
       - name: run job for release
-        if: "test -f UPDATE_RELEASE"
+        if: hashFiles('UPDATE_RELEASE') != ''
         run: echo "UPDATE_RELEASE necessary"
         # uses: ./.github/workflows/build-release.yml
