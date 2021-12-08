@@ -29,6 +29,7 @@ WORKDIR /src/tesseract
 RUN ./autogen.sh && \
     ./configure && \
     make && \
+    make man && \
     make install && \
     ldconfig
 

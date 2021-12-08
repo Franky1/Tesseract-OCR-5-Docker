@@ -1,10 +1,5 @@
 name: Test Python and Scheduler
 
-# env:
-  # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  # UPDATE_MAIN: False
-  # UPDATE_RELEASE: False
-
 on:
   schedule:
     # Runs "at 04:04 every day" (see https://crontab.guru)

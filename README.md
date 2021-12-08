@@ -98,6 +98,7 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
 - [ ] Add badges to `README.md`
 - [ ] Build Tesseract from release version instead of the main trunk version!
 - [ ] Improve GitHub Action to automatically tag the image according to Tesseract Release version
+- [ ] make Dockerfile more flexible
 - [ ] Add more languages by default?
 - [ ] Building Tesseract with TensorFlow?
 - [ ] Building Tesseract with Training tools?
