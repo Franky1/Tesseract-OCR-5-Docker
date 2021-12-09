@@ -98,12 +98,12 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
 - [ ] Add badges to `README.md`
 - [ ] Build Tesseract from release version instead of the main trunk version!
 - [ ] Improve GitHub Action to automatically tag the image according to Tesseract Release version
-- [ ] make Dockerfile more flexible
-- [ ] Add more languages by default?
+- [ ] make Dockerfile more flexible regarding languages and tags
+- [ ] make GitHub Actions more modular and split them up
+- [ ] Add scheduler to check original repo for new releases and trigger Github Action?
+- [ ] Build image for more targets
 - [ ] Building Tesseract with TensorFlow?
 - [ ] Building Tesseract with Training tools?
-- [ ] Add scheduler to check original repo for new releases and trigger Github Action?
-- [ ] Build image for more targets?
 
 ## Issues
 
@@ -111,4 +111,4 @@ If you have any bugs or requests regarding this Docker image, please post an iss
 
 ## Project status
 
-> 06.12.2021: Work in progress, but docker image is ready for usage
+> 09.12.2021: Work in progress, but docker image is ready for usage
