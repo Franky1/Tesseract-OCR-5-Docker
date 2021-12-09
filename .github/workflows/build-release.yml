@@ -2,8 +2,18 @@ name: Build Release
 
 on:
   workflow_call:
-    branches:
-      - main
+    inputs:
+      BRANCH:
+        required: true
+        type: string
+      TAG:
+        required: true
+        type: string
+    secrets:
+      GITHUB_TOKEN:
+        required: true
+      SNYK_TOKEN:
+        required: true
 
 jobs:
   example_job:

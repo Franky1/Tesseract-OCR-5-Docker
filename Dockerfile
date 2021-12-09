@@ -1,6 +1,9 @@
 # Debian 11 aka Bullseye
 FROM debian:11
 
+ARG TESSERACT_VERSION="main"
+ARG TESSERACT_URL="https://api.github.com/repos/tesseract-ocr/tesseract/tarball/$TESSERACT_VERSION"
+
 # install basic tools
 RUN apt-get update && apt-get install --no-install-recommends --yes \
     apt-transport-https \
@@ -22,7 +25,10 @@ RUN apt-get update && apt-get install --no-install-recommends --yes \
 
 WORKDIR /src
 
-RUN git clone --depth 1  https://github.com/tesseract-ocr/tesseract.git
+RUN wget -qO tesseract.tar.gz $TESSERACT_URL && \
+    tar -xzf tesseract.tar.gz && \
+    rm tesseract.tar.gz && \
+    mv tesseract-* tesseract
 
 WORKDIR /src/tesseract
 
@@ -35,9 +41,12 @@ RUN ./autogen.sh && \
 # go to default traineddata directory
 WORKDIR /usr/local/share/tessdata/
 
-# add traineddata languages - here eng and deu
-RUN wget https://github.com/tesseract-ocr/tessdata_best/blob/main/eng.traineddata?raw=true -O eng.traineddata && \
-    wget https://github.com/tesseract-ocr/tessdata_best/blob/main/deu.traineddata?raw=true -O deu.traineddata
+# copy language script and list to image
+COPY get-languages.sh .
+COPY languages.txt .
+
+# download traineddata languages
+RUN ./get-languages.sh
 
 # go to user input/output folder
 WORKDIR /tmp/
@@ -45,7 +54,11 @@ WORKDIR /tmp/
 # CMD ["tesseract", "--version"]
 CMD ["tesseract", "--list-langs"]
 
-# docker build -t tesseract .
+# docker pull debian:11
+# docker build --tag tesseract:latest --build-arg TESSERACT_VERSION=main .
+# docker build --tag tesseract:5.0.0 --build-arg TESSERACT_VERSION=5.0.0 .
+# docker run -it --rm tesseract:latest
+# docker run -it --rm tesseract:5.0.0
 # docker run -it --name tesseract --rm tesseract /bin/bash
 # docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm tesseract /bin/bash
 # docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm tesseract tesseract english.png output --oem 1 -l eng

@@ -1,0 +1,28 @@
+name: Linter
+
+on:
+  workflow_call:
+    inputs:
+      BRANCH:
+        required: true
+        type: string
+    secrets:
+      GITHUB_TOKEN:
+        required: true
+
+jobs:
+  Linter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Lint Code Base
+        uses: github/super-linter/slim@v4
+        env:
+          DEFAULT_BRANCH: ${{ inputs.BRANCH }}
+          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_MARKDOWN: true
+          VALIDATE_DOCKERFILE: true
+          VALIDATE_PYTHON: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

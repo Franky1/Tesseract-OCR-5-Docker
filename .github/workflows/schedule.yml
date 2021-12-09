@@ -1,9 +1,9 @@
-name: Test Python and Scheduler
+name: Schedule
 
 on:
   schedule:
-    # Runs "at 04:04 every day" (see https://crontab.guru)
-    - cron: '4 4 * * *'
+    # Runs "at 03:13 every day" (see https://crontab.guru)
+    - cron: '3 13 * * *'
   push:
     branches:
       - main
@@ -12,7 +12,7 @@ on:
       - main
 
 jobs:
-  Explore:
+  Schedule:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -26,10 +26,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: run job for main branch
-        if: hashFiles('UPDATE_MAIN') != ''
-        run: echo "UPDATE_MAIN necessary"
-        # uses: ./.github/workflows/build-main.yml
+        if: hashFiles('MAIN.json') != ''
+        run: echo "Update MAIN necessary"
+        uses: ./.github/workflows/build-main.yml@main
+        with:
+          TAG: latest
+          BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: run job for release
-        if: hashFiles('UPDATE_RELEASE') != ''
-        run: echo "UPDATE_RELEASE necessary"
-        # uses: ./.github/workflows/build-release.yml
+        if: hashFiles('RELEASE.json') != ''
+        run: echo "Update RELEASE necessary"
+        # uses: ./.github/workflows/build-release.yml@main
+        # with:
+        #   TAG: latest
+        #   BRANCH: main
+        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #   SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
