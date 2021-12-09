@@ -14,6 +14,11 @@ on:
 jobs:
   Version-Check:
     runs-on: ubuntu-latest
+    outputs:
+      MAIN: "main"
+      RELEASE: "5.0.0"
+      # MAIN: ${{ steps.output1.outputs.MAIN }}
+      # RELEASE: ${{ steps.output2.outputs.RELEASE }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -25,19 +30,18 @@ jobs:
         run: python versioncheck.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: output
-        uses: actions/output@v1
-        env:
-          MAIN: "main"
-          RELEASE: "5.0.0"
+      - id: output1
+        run: echo "::set-output name=MAIN::main"
+      - id: output2
+        run: echo "::set-output name=RELEASE::5.0.0"
 
   Build-Main:
     uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/build-main.yml@main
     needs: Version-Check
-    if: ${{ env.MAIN }} != ''
+    if: ${{ needs.Version-Check.outputs.MAIN }} != ''
     with:
       TAG: latest
-      BRANCH: ${{ env.MAIN }}
+      BRANCH: ${{ needs.Version-Check.outputs.MAIN }}
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
