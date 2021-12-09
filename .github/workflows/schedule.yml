@@ -27,7 +27,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: run job for main branch
         if: hashFiles('MAIN.json') != ''
-        run: echo "Update MAIN necessary"
+        # run: echo "Update MAIN necessary"
         uses: ./.github/workflows/build-main.yml@main
         with:
           TAG: latest
