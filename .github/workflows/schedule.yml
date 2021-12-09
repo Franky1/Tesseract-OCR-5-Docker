@@ -28,7 +28,7 @@ jobs:
       - name: run job for main branch
         if: hashFiles('MAIN.json') != ''
         # run: echo "Update MAIN necessary"
-        uses: ./.github/workflows/build-main.yml@main
+        uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/build-main.yml@main
         with:
           TAG: latest
           BRANCH: main
@@ -37,7 +37,7 @@ jobs:
       - name: run job for release
         if: hashFiles('RELEASE.json') != ''
         run: echo "Update RELEASE necessary"
-        # uses: ./.github/workflows/build-release.yml@main
+        # uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/build-release.yml@main
         # with:
         #   TAG: latest
         #   BRANCH: main
