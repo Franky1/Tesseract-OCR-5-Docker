@@ -42,9 +42,11 @@ jobs:
     with:
       TAG: latest
       BRANCH: ${{ needs.Version-Check.outputs.MAIN }}
+      # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+    secrets:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
   # Build-Release:
   #   uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/build-release.yml@main
   #   needs: Version-Check
