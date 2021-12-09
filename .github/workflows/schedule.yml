@@ -12,7 +12,7 @@ on:
       - main
 
 jobs:
-  Schedule:
+  Version-Check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -25,21 +25,28 @@ jobs:
         run: python versioncheck.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: run job for main branch
-        if: hashFiles('MAIN.json') != ''
-        # run: echo "Update MAIN necessary"
-        uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/build-main.yml@main
-        with:
-          TAG: latest
-          BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-      - name: run job for release
-        if: hashFiles('RELEASE.json') != ''
-        run: echo "Update RELEASE necessary"
-        # uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/build-release.yml@main
-        # with:
-        #   TAG: latest
-        #   BRANCH: main
-        #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        #   SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      - name: output
+        uses: actions/output@v1
+        env:
+          MAIN: "main"
+          RELEASE: "5.0.0"
+
+  Build-Main:
+    uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/build-main.yml@main
+    needs: Version-Check
+    if: ${{ env.MAIN }} != ''
+    with:
+      TAG: latest
+      BRANCH: ${{ env.MAIN }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
+  # Build-Release:
+  #   uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/build-release.yml@main
+  #   needs: Version-Check
+  #   if: ${{ env.RELEASE }} != ''
+  #   with:
+  #     TAG: ${{ env.RELEASE }}
+  #     BRANCH: ${{ env.RELEASE }}
+  #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
