@@ -32,13 +32,15 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: read version from file for main
         id: main
+        shell: bash
         run: |
-          $main_version=$(jq -r '.version' MAIN.json)
+          main_version=$(jq -r '.version' MAIN.json)
           echo "::set-output name=MAIN::$main_version"
       - name: read version from file for release
         id: release
+        shell: bash
         run: |
-          $release_version=$(jq -r '.version' RELEASE.json)
+          release_version=$(jq -r '.version' RELEASE.json)
           echo "::set-output name=RELEASE::$release_version"
 
   Build-Main:
