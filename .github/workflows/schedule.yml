@@ -2,8 +2,8 @@ name: Schedule
 
 on:
   schedule:
-    # Runs "at 03:13 every day" (see https://crontab.guru)
-    - cron: '3 13 * * *'
+    # Runs "at 03:03 every day" (see https://crontab.guru)
+    - cron: '3 3 * * *'
   push:
     branches:
       - main
@@ -30,10 +30,16 @@ jobs:
         run: python versioncheck.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - id: main
-        run: echo "::set-output name=MAIN::$(jq -r '.version' MAIN.json)"
-      - id: release
-        run: echo "::set-output name=RELEASE::$(jq -r '.version' RELEASE.json)"
+      - name: read version from file for main
+        id: main
+        run: |
+          $main_version=$(jq -r '.version' MAIN.json)
+          echo "::set-output name=MAIN::$main_version"
+      - name: read version from file for release
+        id: release
+        run: |
+          $release_version=$(jq -r '.version' RELEASE.json)
+          echo "::set-output name=RELEASE::$release_version"
 
   Build-Main:
     uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/build-main.yml@main
@@ -45,6 +51,7 @@ jobs:
     secrets:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+
   # Build-Release:
   #   uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/build-release.yml@main
   #   needs: VersionCheck
