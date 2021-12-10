@@ -46,7 +46,7 @@ jobs:
   Build-Main:
     uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/build-main.yml@main
     needs: VersionCheck
-    if: ${{ needs.VersionCheck.outputs.MAIN }} != 'None'
+    if: ${{ needs.VersionCheck.outputs.MAIN != 'None' }}
     with:
       TAG: latest
       BRANCH: ${{ needs.VersionCheck.outputs.MAIN }}
