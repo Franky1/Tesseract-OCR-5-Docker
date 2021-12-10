@@ -45,6 +45,8 @@ jobs:
     secrets:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
 
   Build-Release:
     uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/docker.yml@main
@@ -56,3 +58,5 @@ jobs:
     secrets:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}

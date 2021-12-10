@@ -14,6 +14,10 @@ on:
         required: true
       SNYK_TOKEN:
         required: true
+      DOCKERHUB_USERNAME:
+        required: true
+      DOCKERHUB_PASSWORD:
+        required: true
 
 jobs:
   Docker:
