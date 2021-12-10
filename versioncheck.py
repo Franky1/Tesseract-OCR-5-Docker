@@ -43,6 +43,18 @@ latest_release = remote_repo.get_latest_release()
 default_branch = remote_repo.get_branch(remote_repo.default_branch)
 
 update = False
+main_data = dict()
+release_data = dict()
+main_data["version"] = "None"
+release_data["version"] = "None"
+
+# get version for default main branch
+if version.get("main") != default_branch.commit.sha:
+    print("New main commit available:", default_branch.commit.sha)
+    update = True
+    main_data["tag"] = "latest"
+    main_data["version"] = default_branch.name
+    main_data["url"] = remote_repo.url + "/tarball/" + default_branch.name
 
 # get version for latest relase
 if version.get("release") != latest_release.tag_name:
@@ -52,23 +64,15 @@ if version.get("release") != latest_release.tag_name:
                 if 'rc' not in latest_release.tag_name.lower():
                         print("New release found:", latest_release.tag_name)
                         update = True
-                        data = dict()  # write url and tag to json file
-                        data["tag"] = latest_release.tag_name
-                        data["version"] = latest_release.tag_name
-                        data["url"] = latest_release.tarball_url
-                        with open("RELEASE.json", "w") as f:
-                            json.dump(data, f, indent=4)
+                        release_data["tag"] = latest_release.tag_name
+                        release_data["version"] = latest_release.tag_name
+                        release_data["url"] = latest_release.tarball_url
 
-# get version for default main branch
-if version.get("main") != default_branch.commit.sha:
-    print("New main commit available:", default_branch.commit.sha)
-    update = True
-    data = dict()  # write url and tag to json file
-    data["tag"] = "latest"
-    data["version"] = default_branch.name
-    data["url"] = remote_repo.url + "/tarball/" + default_branch.name
-    with open("MAIN.json", "w") as f:
-        json.dump(data, f, indent=4)
+with open("MAIN.json", "w") as f:
+    json.dump(main_data, f, indent=4)
+
+with open("RELEASE.json", "w") as f:
+    json.dump(release_data, f, indent=4)
 
 if update:
     print("Update necessary - New Version(s) found")

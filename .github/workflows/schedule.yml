@@ -12,13 +12,13 @@ on:
       - main
 
 jobs:
-  Version-Check:
+  VersionCheck:
     runs-on: ubuntu-latest
     outputs:
-      MAIN: "main"
-      RELEASE: "5.0.0"
-      # MAIN: ${{ steps.output1.outputs.MAIN }}
-      # RELEASE: ${{ steps.output2.outputs.RELEASE }}
+      # MAIN: "main"
+      # RELEASE: "5.0.0"
+      MAIN: ${{ steps.main.outputs.MAIN }}
+      RELEASE: ${{ steps.release.outputs.RELEASE }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -30,26 +30,24 @@ jobs:
         run: python versioncheck.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - id: output1
-        run: echo "::set-output name=MAIN::main"
-      - id: output2
-        run: echo "::set-output name=RELEASE::5.0.0"
+      - id: main
+        run: echo "::set-output name=MAIN::$(jq -r '.version' MAIN.json)"
+      - id: release
+        run: echo "::set-output name=RELEASE::$(jq -r '.version' RELEASE.json)"
 
   Build-Main:
     uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/build-main.yml@main
-    needs: Version-Check
-    if: ${{ needs.Version-Check.outputs.MAIN }} != ''
+    needs: VersionCheck
+    if: ${{ needs.VersionCheck.outputs.MAIN }} != 'None'
     with:
       TAG: latest
-      BRANCH: ${{ needs.Version-Check.outputs.MAIN }}
-      # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      BRANCH: ${{ needs.VersionCheck.outputs.MAIN }}
     secrets:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
   # Build-Release:
   #   uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/build-release.yml@main
-  #   needs: Version-Check
+  #   needs: VersionCheck
   #   if: ${{ env.RELEASE }} != ''
   #   with:
   #     TAG: ${{ env.RELEASE }}

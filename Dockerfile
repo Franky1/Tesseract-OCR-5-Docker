@@ -45,6 +45,8 @@ WORKDIR /usr/local/share/tessdata/
 COPY get-languages.sh .
 COPY languages.txt .
 
+# make script executable
+RUN chmod +x ./get-languages.sh
 # download traineddata languages
 RUN ./get-languages.sh
 
