@@ -1,0 +1,112 @@
+name: Push
+
+on:
+  schedule:
+    # Runs "at 05:05 every day" (see https://crontab.guru)
+    - cron: '5 5 * * *'
+  # push:
+  #   branches:
+  #     - main
+  # pull_request:
+  #   branches:
+  #     - main
+
+jobs:
+  Linter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Lint Code Base
+        uses: github/super-linter/slim@v4
+        env:
+          DEFAULT_BRANCH: main
+          VALIDATE_ALL_CODEBASE: true
+          VALIDATE_MARKDOWN: true
+          VALIDATE_DOCKERFILE: true
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  Docker-Build-Test-Push:
+    needs: Linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Build the Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: false
+          tags: franky1/tesseract:latest
+
+      - name: Run the Docker Container
+        run: docker run --name tesseract --rm franky1/tesseract:latest
+
+      - name: Test the Docker Container
+        run: docker run --name tesseract -v ${PWD}/testdata:/tmp --rm franky1/tesseract:latest tesseract english.png output --oem 1 -l eng
+
+      - name: Run Snyk to check Docker image for vulnerabilities
+        id: snyk
+        continue-on-error: true
+        uses: snyk/actions/docker@14818c4695ecc4045f33c9cee9e795a788711ca4
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          image: franky1/tesseract
+          args: --file=Dockerfile
+
+      - name: Upload Snyk result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: snyk.sarif
+          category: Snyk
+
+      - name: Scan image with Anchore
+        id: anchore
+        uses: anchore/scan-action@v3
+        with:
+          image: "franky1/tesseract:latest"
+          fail-build: false
+          acs-report-enable: true
+
+      - name: Upload Anchore result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: ${{ steps.anchore.outputs.sarif }}
+          category: Anchore
+
+      - name: Run Trivy vulnerability scanner
+        id: trivy
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'franky1/tesseract:latest'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v1
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+          category: Trivy
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+      - name: Push Docker Image to Docker Hub
+        run: docker push franky1/tesseract:latest
+
+      - name: Docker Hub Description Update
+        uses: peter-evans/dockerhub-description@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
+          repository: franky1/tesseract
+          short-description: ${{ github.event.repository.description }}
+          readme-filepath: ./Docker-Hub-Description.md

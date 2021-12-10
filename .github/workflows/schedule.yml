@@ -2,7 +2,7 @@ name: Schedule
 
 on:
   schedule:
-    # Runs "at 03:03 every day" (see https://crontab.guru)
+    # Runs "at 03:03 every day"
     - cron: '3 3 * * *'
   push:
     branches:
@@ -15,8 +15,6 @@ jobs:
   VersionCheck:
     runs-on: ubuntu-latest
     outputs:
-      # MAIN: "main"
-      # RELEASE: "5.0.0"
       MAIN: ${{ steps.main.outputs.MAIN }}
       RELEASE: ${{ steps.release.outputs.RELEASE }}
     steps:
@@ -30,13 +28,13 @@ jobs:
         run: python versioncheck.py
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: read version from file for main
+      - name: read version from file for main branch
         id: main
         shell: bash
         run: |
           main_version=$(jq -r '.version' MAIN.json)
           echo "::set-output name=MAIN::$main_version"
-      - name: read version from file for release
+      - name: read version from file for latest release
         id: release
         shell: bash
         run: |
@@ -44,7 +42,7 @@ jobs:
           echo "::set-output name=RELEASE::$release_version"
 
   Build-Main:
-    uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/build-main.yml@main
+    uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/docker.yml@main
     needs: VersionCheck
     if: ${{ needs.VersionCheck.outputs.MAIN != 'None' }}
     with:
@@ -54,12 +52,13 @@ jobs:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
-  # Build-Release:
-  #   uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/build-release.yml@main
-  #   needs: VersionCheck
-  #   if: ${{ env.RELEASE }} != ''
-  #   with:
-  #     TAG: ${{ env.RELEASE }}
-  #     BRANCH: ${{ env.RELEASE }}
-  #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #     SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+  Build-Release:
+    uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/docker.yml@main
+    needs: VersionCheck
+    if: ${{ needs.VersionCheck.outputs.RELEASE != 'None' }}
+    with:
+      TAG: ${{ needs.VersionCheck.outputs.RELEASE }}
+      BRANCH: ${{ needs.VersionCheck.outputs.RELEASE }}
+    secrets:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

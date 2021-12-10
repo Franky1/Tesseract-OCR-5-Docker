@@ -88,5 +88,5 @@ If you have any bugs or requests regarding this Docker image, please post an iss
 ## Project status
 
 ```text
-09.12.2021: Work in progress, but docker image is ready for usage
+10.12.2021: Work in progress, but docker image is ready for usage
 ```

@@ -1,4 +1,4 @@
-name: Build Main
+name: Docker
 
 on:
   workflow_call:
@@ -37,7 +37,6 @@ jobs:
         run: docker run --rm -v ${PWD}/testdata:/tmp franky1/tesseract:${{ inputs.TAG }} tesseract english.png output --oem 1 -l eng
 
       - name: Run Snyk to check Docker image for vulnerabilities
-        # id: snyk
         continue-on-error: true
         uses: snyk/actions/docker@14818c4695ecc4045f33c9cee9e795a788711ca4
         env:
@@ -46,41 +45,11 @@ jobs:
           image: franky1/tesseract:${{ inputs.TAG }}
           args: --file=Dockerfile
 
-      - name: Upload Snyk result to GitHub Code Scanning
+      - name: Upload Snyk report to GitHub
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: snyk.sarif
           category: snyk-docker-${{ inputs.TAG }}
-
-      # - name: Scan image with Anchore
-      #   id: anchore
-      #   uses: anchore/scan-action@v3
-      #   with:
-      #     image: "franky1/tesseract:latest"
-      #     fail-build: false
-      #     acs-report-enable: true
-
-      # - name: Upload Anchore result to GitHub Code Scanning
-      #   uses: github/codeql-action/upload-sarif@v1
-      #   with:
-      #     sarif_file: ${{ steps.anchore.outputs.sarif }}
-      #     category: Anchore
-
-      # - name: Run Trivy vulnerability scanner
-      #   id: trivy
-      #   uses: aquasecurity/trivy-action@master
-      #   with:
-      #     image-ref: 'franky1/tesseract:latest'
-      #     format: 'template'
-      #     template: '@/contrib/sarif.tpl'
-      #     output: 'trivy-results.sarif'
-
-      # - name: Upload Trivy scan results to GitHub Security tab
-      #   uses: github/codeql-action/upload-sarif@v1
-      #   if: always()
-      #   with:
-      #     sarif_file: 'trivy-results.sarif'
-      #     category: Trivy
 
       - name: Login to DockerHub
         uses: docker/login-action@v1

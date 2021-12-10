@@ -90,17 +90,12 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
 
 ## ToDo
 
+- [ ] Update `README.md` to latest Dockerfile and Usage
 - [x] Add dependabot on Github
-- [ ] Add vulnerability scanning in Github Actions:
-  - [x] Snyk
-  - [x] Anchore Container Scan
-  - [x] Trivy
+- [x] Add vulnerability scanning in Github Actions with Snyk
 - [ ] Add badges to `README.md`
-- [ ] Build Tesseract from release version instead of the main trunk version!
-- [ ] Improve GitHub Action to automatically tag the image according to Tesseract Release version
-- [ ] make Dockerfile more flexible regarding languages and tags
-- [ ] make GitHub Actions more modular and split them up
-- [ ] Add scheduler to check original repo for new releases and trigger Github Action?
+- [ ] Add documentation for GitHub Actions Workflow
+- [ ] Add more inline comments in GitHub Actions related files
 - [ ] Build image for more targets
 - [ ] Building Tesseract with TensorFlow?
 - [ ] Building Tesseract with Training tools?
@@ -111,4 +106,4 @@ If you have any bugs or requests regarding this Docker image, please post an iss
 
 ## Project status
 
-> 09.12.2021: Work in progress, but docker image is ready for usage
+> 10.12.2021: Work in progress, but docker image is ready for usage
