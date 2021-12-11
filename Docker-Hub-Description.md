@@ -2,9 +2,15 @@
 
 Docker Image with latest Tesseract OCR Version 5.x.x built from sources.
 
-The sources are pulled from the latest `main` branch of the [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) project.
+The sources are pulled from the latest `main` branch and latest `releases` of the [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) project.
 
 GitHub Repository: <https://github.com/Franky1/Tesseract-OCR-5-Docker>
+
+## Tags
+
+`latest` : Whenever there is a change in the sources, the `main` branch is pulled and the image is rebuilt. Changes are checked on a daily basis.
+
+`5.0.0` : Whenever there is a new release of Tesseract OCR 5.x.x., the sources from this release are pulled and the image is built and tagged accordingly. Checking for new releases is done on a daily basis.
 
 ## Usage
 
@@ -88,5 +94,5 @@ If you have any bugs or requests regarding this Docker image, please post an iss
 ## Project status
 
 ```text
-10.12.2021: Work in progress, but docker image is ready for usage
+11.12.2021: Work in progress, but docker image is ready for usage
 ```

@@ -4,6 +4,7 @@ on:
   schedule:
     # Runs "at 03:03 every day"
     - cron: '3 3 * * *'
+  workflow_dispatch:
 
 jobs:
   VersionCheck:

@@ -6,9 +6,32 @@ on:
       BRANCH:
         required: true
         type: string
+        description: The branch to build from
       TAG:
         required: true
         type: string
+        description: The docker tag to build
+    secrets:
+      GITHUB_TOKEN:
+        required: true
+      SNYK_TOKEN:
+        required: true
+      DOCKERHUB_USERNAME:
+        required: true
+      DOCKERHUB_PASSWORD:
+        required: true
+  workflow_dispatch:
+    inputs:
+      BRANCH:
+        required: true
+        type: string
+        description: The github branch to build from
+        default: 'main'
+      TAG:
+        required: true
+        type: string
+        description: The docker tag to build
+        default: 'latest'
     secrets:
       GITHUB_TOKEN:
         required: true

@@ -47,15 +47,27 @@ docker run -it -v ${PWD}/testdata:/tmp \
   tesseract french.jpg output --oem 1 -l fra
 ```
 
+Alternatively, you can build a new Docker image if you want other languages, see next section.
+
 ## Build Docker Image yourself
 
-Build the docker image locally from scratch:
+For details have a look into the [Dockerfile](Dockerfile).
+
+1. Git clone this repo.
+2. Add your required languages to the [languages.txt](languages.txt) file.
+3. (a) Build the docker image from scratch, if you want the latest sources from the `main` branch.
 
 ```bash
 docker build --tag tesseract .
 ```
 
-Run Tesseract OCR container with test image:
+3. (b) Build the docker image from scratch, if you want a specific `release` version.
+
+```bash
+docker build --tag tesseract --build-arg TESSERACT_VERSION=5.0.0 .
+```
+
+4. Run Tesseract OCR container with test image:
 
 ```bash
 docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
@@ -90,7 +102,8 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
 
 ## ToDo
 
-- [ ] Update `README.md` to latest Dockerfile and Usage
+- [x] Update `README.md` to latest Dockerfile and Usage
+- [x] add `workflow_dispatch` to github workflows
 - [x] Add dependabot on Github
 - [x] Add vulnerability scanning in Github Actions with Snyk
 - [ ] Add badges to `README.md`
@@ -106,4 +119,4 @@ If you have any bugs or requests regarding this Docker image, please post an iss
 
 ## Project status
 
-> 10.12.2021: Work in progress, but docker image is ready for usage
+> 11.12.2021: Work in progress, but docker image is ready for usage
