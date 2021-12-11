@@ -2,7 +2,7 @@
 
 Docker Image with latest Tesseract OCR Version 5.x.x built from sources.
 
-The sources are pulled from the latest `main` branch of the [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) project.
+The sources are pulled from the latest `main` branch and latest `releases` of the [Tesseract OCR](https://github.com/tesseract-ocr/tesseract) project.
 
 Docker Hub: <https://hub.docker.com/r/franky1/tesseract>
 
