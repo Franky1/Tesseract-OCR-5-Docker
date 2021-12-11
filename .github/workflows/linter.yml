@@ -1,7 +1,15 @@
 name: Linter
 
 on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
   workflow_call:
+    branches:
+      - main
     inputs:
       BRANCH:
         required: true
@@ -10,6 +18,8 @@ on:
       GITHUB_TOKEN:
         required: true
   workflow_dispatch:
+    branches:
+      - main
     inputs:
       BRANCH:
         required: true
@@ -30,7 +40,8 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter/slim@v4
         env:
-          DEFAULT_BRANCH: ${{ inputs.BRANCH }}
+          # DEFAULT_BRANCH: ${{ inputs.BRANCH }}
+          DEFAULT_BRANCH: ${{ github.ref_name }}
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_MARKDOWN: true
           VALIDATE_DOCKERFILE: true
