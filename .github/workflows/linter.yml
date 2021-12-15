@@ -13,9 +13,6 @@ on:
         required: true
         type: string
         default: 'main'
-    # secrets:
-    #   GITHUB_TOKEN:
-    #     required: true
   workflow_dispatch:
     branches:
       - main
@@ -25,9 +22,6 @@ on:
         type: string
         description: The github branch to pull from
         default: 'main'
-    # secrets:
-    #   GITHUB_TOKEN:
-    #     required: true
 
 jobs:
   Linter:

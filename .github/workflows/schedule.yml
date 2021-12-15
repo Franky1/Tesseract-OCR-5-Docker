@@ -44,7 +44,6 @@ jobs:
       TAG: latest
       BRANCH: ${{ needs.VersionCheck.outputs.MAIN }}
     secrets:
-      # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -57,7 +56,6 @@ jobs:
       TAG: ${{ needs.VersionCheck.outputs.RELEASE }}
       BRANCH: ${{ needs.VersionCheck.outputs.RELEASE }}
     secrets:
-      # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}

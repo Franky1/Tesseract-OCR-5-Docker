@@ -12,8 +12,6 @@ on:
         type: string
         description: The docker tag to build
     secrets:
-      # GITHUB_TOKEN:
-      #   required: true
       SNYK_TOKEN:
         required: true
       DOCKERHUB_USERNAME:
@@ -33,8 +31,6 @@ on:
         description: The docker tag to build
         default: 'latest'
     secrets:
-      # GITHUB_TOKEN:
-      #   required: true
       SNYK_TOKEN:
         required: true
       DOCKERHUB_USERNAME:
