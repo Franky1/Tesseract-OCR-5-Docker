@@ -44,20 +44,20 @@ jobs:
     steps:
       - name: Show versions
         run: |
-          echo "BRANCH --> ${{ github.events.inputs.BRANCH }}"
-          echo "TAG --> ${{ github.events.inputs.TAG }}"
+          echo "BRANCH --> ${{ github.event.inputs.BRANCH }}"
+          echo "TAG --> ${{ github.event.inputs.TAG }}"
 
       - name: Checkout Code
         uses: actions/checkout@v2
 
       - name: Build the Docker Image
-        run: docker build --tag franky1/tesseract:${{ github.events.inputs.TAG }} --build-arg TESSERACT_VERSION=${{ github.events.inputs.BRANCH }} .
+        run: docker build --tag franky1/tesseract:${{ github.event.inputs.TAG }} --build-arg TESSERACT_VERSION=${{ github.event.inputs.BRANCH }} .
 
       - name: Run the Docker Container
-        run: docker run --rm franky1/tesseract:${{ github.events.inputs.TAG }}
+        run: docker run --rm franky1/tesseract:${{ github.event.inputs.TAG }}
 
       - name: Test the Docker Container
-        run: docker run --rm -v ${PWD}/testdata:/tmp franky1/tesseract:${{ github.events.inputs.TAG }} tesseract english.png output --oem 1 -l eng
+        run: docker run --rm -v ${PWD}/testdata:/tmp franky1/tesseract:${{ github.event.inputs.TAG }} tesseract english.png output --oem 1 -l eng
 
       - name: Run Snyk to check Docker image for vulnerabilities
         continue-on-error: true
@@ -65,14 +65,14 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
-          image: franky1/tesseract:${{ github.events.inputs.TAG }}
+          image: franky1/tesseract:${{ github.event.inputs.TAG }}
           args: --file=Dockerfile
 
       - name: Upload Snyk report to GitHub
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: snyk.sarif
-          category: snyk-docker-${{ github.events.inputs.TAG }}
+          category: snyk-docker-${{ github.event.inputs.TAG }}
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
@@ -81,7 +81,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Push Docker Image to Docker Hub
-        run: docker push franky1/tesseract:${{ github.events.inputs.TAG }}
+        run: docker push franky1/tesseract:${{ github.event.inputs.TAG }}
 
       - name: Docker Hub Description Update
         uses: peter-evans/dockerhub-description@v2
