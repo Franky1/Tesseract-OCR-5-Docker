@@ -16,8 +16,8 @@ jobs:
     uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/linter.yml@main
     with:
       BRANCH: "main"
-    secrets:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # secrets:
+    #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   Build-Main:
     uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/docker.yml@main
