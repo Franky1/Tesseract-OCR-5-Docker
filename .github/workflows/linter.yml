@@ -12,6 +12,7 @@ on:
       BRANCH:
         required: true
         type: string
+        default: 'main'
     secrets:
       GITHUB_TOKEN:
         required: true
