@@ -33,7 +33,7 @@ jobs:
       - name: Lint Code Base
         uses: github/super-linter/slim@v4
         env:
-          # DEFAULT_BRANCH: ${{ inputs.BRANCH }}
+          # DEFAULT_BRANCH: ${{ github.events.inputs.BRANCH }}
           DEFAULT_BRANCH: ${{ github.ref_name }}
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_MARKDOWN: true
