@@ -13,9 +13,9 @@ on:
         required: true
         type: string
         default: 'main'
-    secrets:
-      GITHUB_TOKEN:
-        required: true
+    # secrets:
+    #   GITHUB_TOKEN:
+    #     required: true
   workflow_dispatch:
     branches:
       - main
