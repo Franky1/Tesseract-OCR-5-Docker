@@ -10,8 +10,8 @@ jobs:
   VersionCheck:
     runs-on: ubuntu-latest
     outputs:
-      MAIN: ${{ steps.main.outputs.MAIN }}
-      RELEASE: ${{ steps.release.outputs.RELEASE }}
+      main_version: ${{ steps.main.outputs.version }}
+      release_version: ${{ steps.release.outputs.version }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -28,23 +28,32 @@ jobs:
         shell: bash
         run: |
           main_version=$(jq -r '.version' MAIN.json)
-          echo "::set-output name=MAIN::$main_version"
+          echo "::set-output name=version::$main_version"
           echo "MAIN: $main_version"
       - name: read version from file for latest release
         id: release
         shell: bash
         run: |
           release_version=$(jq -r '.version' RELEASE.json)
-          echo "::set-output name=RELEASE::$release_version"
+          echo "::set-output name=version::$release_version"
           echo "RELEASE: $release_version"
+
+  Print-Versions:
+    runs-on: ubuntu-latest
+    needs: VersionCheck
+    steps:
+      - name: Show versions
+        run: |
+          echo "MAIN --> ${{ needs.VersionCheck.outputs.main_version }}"
+          echo "RELEASE --> ${{ needs.VersionCheck.outputs.release_version }}"
 
   Build-Main:
     uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/docker.yml@main
     needs: VersionCheck
-    if: ${{ needs.VersionCheck.outputs.MAIN != 'None' }}
+    if: ${{ needs.VersionCheck.outputs.main_version != 'None' }}
     with:
       TAG: latest
-      BRANCH: ${{ needs.VersionCheck.outputs.MAIN }}
+      BRANCH: ${{ needs.VersionCheck.outputs.main_version }}
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -53,10 +62,10 @@ jobs:
   Build-Release:
     uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/docker.yml@main
     needs: VersionCheck
-    if: ${{ needs.VersionCheck.outputs.RELEASE != 'None' }}
+    if: ${{ needs.VersionCheck.outputs.release_version != 'None' }}
     with:
-      TAG: ${{ needs.VersionCheck.outputs.RELEASE }}
-      BRANCH: ${{ needs.VersionCheck.outputs.RELEASE }}
+      TAG: ${{ needs.VersionCheck.outputs.release_version }}
+      BRANCH: ${{ needs.VersionCheck.outputs.release_version }}
     secrets:
       SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
