@@ -89,5 +89,5 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
           repository: franky1/tesseract
-          short-description: ${{ repository.description }}
+          short-description: ${{ github.event.repository.description }}
           readme-filepath: ./Docker-Hub-Description.md
