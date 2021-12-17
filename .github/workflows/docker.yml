@@ -1,6 +1,7 @@
-name: Docker
+name: Docker Builds
 
 on:
+  # call workflow from other workflow
   workflow_call:
     inputs:
       BRANCH:
@@ -18,6 +19,7 @@ on:
         required: true
       DOCKERHUB_PASSWORD:
         required: true
+  # manually trigger the workflow
   workflow_dispatch:
     inputs:
       BRANCH:

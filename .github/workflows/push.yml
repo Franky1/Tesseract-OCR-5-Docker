@@ -1,4 +1,4 @@
-name: Push
+name: Push Event
 
 on:
   # push:
@@ -7,6 +7,7 @@ on:
   # pull_request:
   #   branches:
   #     - main
+  # manually trigger the workflow
   workflow_dispatch:
     branches:
       - main

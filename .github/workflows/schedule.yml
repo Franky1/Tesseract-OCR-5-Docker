@@ -1,9 +1,10 @@
-name: Schedule
+name: Scheduler Daily
 
 on:
+  # cron runs at 03:03 every day
   schedule:
-    # Runs "at 03:03 every day"
     - cron: '3 3 * * *'
+  # manually trigger the workflow
   workflow_dispatch:
 
 jobs:

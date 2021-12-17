@@ -7,12 +7,14 @@ on:
   pull_request:
     branches:
       - main
+  # call workflow from other workflow
   workflow_call:
     inputs:
       BRANCH:
         required: true
         type: string
         default: 'main'
+  # manually trigger the workflow
   workflow_dispatch:
     branches:
       - main

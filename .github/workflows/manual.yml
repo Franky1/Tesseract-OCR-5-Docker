@@ -1,0 +1,39 @@
+name: Manual Trigger Docker Builds
+
+on:
+  # manually trigger the workflow
+  workflow_dispatch:
+    inputs:
+      MAIN:
+        required: true
+        type: string
+        description: The github branch to build latest tag
+        default: 'main'
+      RELEASE:
+        required: true
+        type: string
+        description: The github release to build
+        default: 'None'
+
+jobs:
+  Build-Main:
+    uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/docker.yml@main
+    if: ${{ github.event.inputs.MAIN != 'None' }}
+    with:
+      TAG: latest
+      BRANCH: ${{ github.event.inputs.MAIN }}
+    secrets:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
+
+  Build-Release:
+    uses: Franky1/Tesseract-OCR-5-Docker/.github/workflows/docker.yml@main
+    if: ${{ github.event.inputs.RELEASE != 'None' }}
+    with:
+      TAG: ${{ github.event.inputs.RELEASE }}
+      BRANCH: ${{ github.event.inputs.RELEASE }}
+    secrets:
+      SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
