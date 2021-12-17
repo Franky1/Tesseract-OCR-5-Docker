@@ -10,7 +10,7 @@ GitHub Repository: <https://github.com/Franky1/Tesseract-OCR-5-Docker>
 
 `latest` : Whenever there is a change in the sources, the `main` branch is pulled and the image is rebuilt. Changes are checked on a daily basis.
 
-`5.0.0` : Whenever there is a new release of Tesseract OCR 5.x.x., the sources from this release are pulled and the image is built and tagged accordingly. Checking for new releases is done on a daily basis.
+`5.x.x` : Whenever there is a new release of Tesseract OCR 5.x.x., the sources from this release are pulled and the image is built and tagged accordingly. Checking for new releases is done on a daily basis.
 
 ## Usage
 

@@ -20,25 +20,26 @@ on:
       DOCKERHUB_PASSWORD:
         required: true
   # manually trigger the workflow
-  workflow_dispatch:
-    inputs:
-      BRANCH:
-        required: true
-        type: string
-        description: The github branch to build from
-        default: 'main'
-      TAG:
-        required: true
-        type: string
-        description: The docker tag to build
-        default: 'latest'
-    secrets:
-      SNYK_TOKEN:
-        required: true
-      DOCKERHUB_USERNAME:
-        required: true
-      DOCKERHUB_PASSWORD:
-        required: true
+  # TODO: deactivate this for now, as it is not working
+  # workflow_dispatch:
+  #   inputs:
+  #     BRANCH:
+  #       required: true
+  #       type: string
+  #       description: The github branch to build from
+  #       default: 'main'
+  #     TAG:
+  #       required: true
+  #       type: string
+  #       description: The docker tag to build
+  #       default: 'latest'
+  #   secrets:
+  #     SNYK_TOKEN:
+  #       required: true
+  #     DOCKERHUB_USERNAME:
+  #       required: true
+  #     DOCKERHUB_PASSWORD:
+  #       required: true
 
 jobs:
   Docker:
