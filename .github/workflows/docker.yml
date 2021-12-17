@@ -6,9 +6,11 @@ on:
       BRANCH:
         required: true
         type: string
+        description: The github branch to build from
       TAG:
         required: true
         type: string
+        description: The docker tag to build
     secrets:
       SNYK_TOKEN:
         required: true
@@ -42,8 +44,8 @@ jobs:
     steps:
       - name: Show versions
         run: |
-          echo "BRANCH --> ${{ github.event.inputs.BRANCH }}"
-          echo "TAG --> ${{ github.event.inputs.TAG }}"
+          echo "BRANCH --> ${{ inputs.BRANCH }}"
+          echo "TAG --> ${{ inputs.TAG }}"
 
       - name: Checkout Code
         uses: actions/checkout@v2
