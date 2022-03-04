@@ -106,6 +106,7 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
 - [x] add `workflow_dispatch` to github workflows
 - [x] Add dependabot on Github
 - [x] Add vulnerability scanning in Github Actions with Snyk
+- [ ] Add GitHub Action for check container efficiency with Dive <https://github.com/MartinHeinz/dive-action>
 - [ ] Add badges to `README.md`
 - [ ] Add documentation for GitHub Actions Workflow
 - [ ] Add more inline comments in GitHub Actions related files
@@ -119,4 +120,4 @@ If you have any bugs or requests regarding this Docker image, please post an iss
 
 ## Project status
 
-> 11.12.2021: Work in progress, but docker image is ready for usage
+> 04.03.2022: Docker Image is ready for usage, still some slight improvements possible
