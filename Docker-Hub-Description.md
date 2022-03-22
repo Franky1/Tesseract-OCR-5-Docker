@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD041 -->
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/Franky1/Tesseract-OCR-5-Docker)
 ![Issues](https://img.shields.io/github/issues/Franky1/Tesseract-OCR-5-Docker?logo=github)
 ![Docker](https://img.shields.io/docker/v/franky1/tesseract?logo=docker)

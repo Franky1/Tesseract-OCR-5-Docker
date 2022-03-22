@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD029 MD041 -->
 ![License](https://img.shields.io/github/license/Franky1/Tesseract-OCR-5-Docker?logo=github)
 ![Issues](https://img.shields.io/github/issues/Franky1/Tesseract-OCR-5-Docker?logo=github)
 ![Last Commit](https://img.shields.io/github/last-commit/Franky1/Tesseract-OCR-5-Docker?logo=github)
