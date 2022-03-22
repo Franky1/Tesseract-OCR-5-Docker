@@ -1,3 +1,8 @@
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/Franky1/Tesseract-OCR-5-Docker)
+![Issues](https://img.shields.io/github/issues/Franky1/Tesseract-OCR-5-Docker?logo=github)
+![Docker](https://img.shields.io/docker/v/franky1/tesseract?logo=docker)
+![Docker](https://img.shields.io/docker/v/franky1/tesseract?sort=semver&logo=docker)
+
 # Tesseract OCR
 
 Docker Image with latest Tesseract OCR Version 5.x.x built from sources.
@@ -94,5 +99,5 @@ If you have any bugs or requests regarding this Docker image, please post an iss
 ## Project status
 
 ```text
-04.03.2022: Docker Image is ready for usage, still some slight improvements possible (see GitHub Repo)
+22.03.2022: Docker Image is ready for usage, still some slight improvements possible (see GitHub Repo)
 ```

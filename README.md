@@ -1,3 +1,11 @@
+![License](https://img.shields.io/github/license/Franky1/Tesseract-OCR-5-Docker?logo=github)
+![Issues](https://img.shields.io/github/issues/Franky1/Tesseract-OCR-5-Docker?logo=github)
+![Last Commit](https://img.shields.io/github/last-commit/Franky1/Tesseract-OCR-5-Docker?logo=github)
+
+[![Docker](https://img.shields.io/badge/Go%20To-Docker%20Hub-blue?logo=docker)](https://hub.docker.com/repository/docker/franky1/tesseract)
+![Docker](https://img.shields.io/docker/v/franky1/tesseract?logo=docker)
+![Docker](https://img.shields.io/docker/v/franky1/tesseract?sort=semver&logo=docker)
+
 # Tesseract-OCR-5-Docker
 
 Docker Image with latest Tesseract OCR Version 5.x.x built from sources.
@@ -94,7 +102,7 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
 
 ## Further documentation
 
-- GitHub Repository for this Docker Image: <https://github.com/Franky1/Tesseract-OCR-5-Docker>
+- Docker Hub: <https://hub.docker.com/repository/docker/franky1/tesseract>
 - Original Tesseract Github Repository: <https://github.com/tesseract-ocr/tesseract>
 - Original Tesseract Documentation: <https://tesseract-ocr.github.io/>
 - Original Tesseract Manual: <https://tesseract-ocr.github.io/tessdoc/>
@@ -107,7 +115,7 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
 - [x] Add dependabot on Github
 - [x] Add vulnerability scanning in Github Actions with Snyk
 - [ ] Add GitHub Action for check container efficiency with Dive <https://github.com/MartinHeinz/dive-action>
-- [ ] Add badges to `README.md`
+- [x] Add badges to `README.md`
 - [ ] Add documentation for GitHub Actions Workflow
 - [ ] Add more inline comments in GitHub Actions related files
 - [ ] Build image for more targets
@@ -120,4 +128,4 @@ If you have any bugs or requests regarding this Docker image, please post an iss
 
 ## Project status
 
-> 04.03.2022: Docker Image is ready for usage, still some slight improvements possible
+> 22.03.2022: Docker Image is ready for usage, still some slight improvements possible
