@@ -126,8 +126,10 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
 
 ## Issues
 
+- [ ] `27.07.2022` currently the build of the main source branch fails, reason is unknown
+
 If you have any bugs or requests regarding this Docker image, please post an issue in this Github Repository.
 
 ## Project status
 
-> 22.03.2022: Docker Image is ready for usage, still some slight improvements possible
+> 27.07.2022: Docker Image is ready for usage, still some slight improvements possible, sometimes build issues
