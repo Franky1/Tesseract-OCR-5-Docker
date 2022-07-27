@@ -122,6 +122,7 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
 - [ ] Build image for more targets
 - [ ] Building Tesseract with TensorFlow?
 - [ ] Building Tesseract with Training tools?
+- [ ] Change build in Dockerfile according to instructions in [Compiling-GitInstallation.md](Compiling-GitInstallation.md)
 
 ## Issues
 
