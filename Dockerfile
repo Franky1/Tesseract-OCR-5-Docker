@@ -17,6 +17,9 @@ RUN apt-get update && apt-get install --no-install-recommends --yes \
     git \
     libleptonica-dev \
     libtool \
+    libicu-dev \
+    libpango1.0-dev \
+    libcairo2-dev \
     make \
     pkg-config \
     wget \
