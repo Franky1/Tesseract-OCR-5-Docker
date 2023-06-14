@@ -1,5 +1,5 @@
 # Debian 11 aka Bullseye
-FROM debian:11
+FROM debian:12
 
 ARG TESSERACT_VERSION="main"
 ARG TESSERACT_URL="https://api.github.com/repos/tesseract-ocr/tesseract/tarball/$TESSERACT_VERSION"
