@@ -1,4 +1,4 @@
-# Debian 11 aka Bullseye
+# Debian 12 aka Bookworm
 FROM debian:12
 
 ARG TESSERACT_VERSION="main"
