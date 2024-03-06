@@ -7,7 +7,7 @@
 ![Docker](https://img.shields.io/docker/v/franky1/tesseract?logo=docker)
 ![Docker](https://img.shields.io/docker/v/franky1/tesseract?sort=semver&logo=docker)
 
-# Tesseract-OCR-5-Docker
+# Tesseract-OCR-5-Docker :scroll:
 
 Docker Image with latest Tesseract OCR Version 5.x.x built from sources.
 
@@ -15,9 +15,9 @@ The sources are pulled from the latest `main` branch and latest `releases` of th
 
 Docker Hub: <https://hub.docker.com/r/franky1/tesseract>
 
-## Usage
+## Usage :hammer_and_wrench:
 
-### Pull Docker Image
+### Pull Docker Image :keyboard:
 
 Pull the docker image from Docker Hub:
 
@@ -25,7 +25,7 @@ Pull the docker image from Docker Hub:
 docker pull franky1/tesseract
 ```
 
-### Run Docker Container
+### Run Docker Container :keyboard:
 
 Mount your image data to the `/tmp` directory and run Tesseract OCR container with the required command line options, for example, run Tesseract OCR container with test image:
 
@@ -36,7 +36,7 @@ docker run -it -v ${PWD}/testdata:/tmp --rm franky1/tesseract \
 
 For the Tesseract command line options, please refer to the [Tesseract Manual](https://tesseract-ocr.github.io/tessdoc/)
 
-### Mount more languages
+### Mount more languages :speaking_head:
 
 Test if the mounted languages from your local subfolder `/tessdata` are available in the Docker container.
 Be aware that the local languages overwrite the installed languages in the Docker image. Example here with french language:
@@ -58,7 +58,7 @@ docker run -it -v ${PWD}/testdata:/tmp \
 
 Alternatively, you can build a new Docker image if you want other languages, see next section.
 
-## Build Docker Image yourself
+## Build Docker Image yourself :whale:
 
 For details have a look into the [Dockerfile](Dockerfile).
 
@@ -83,7 +83,7 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
   tesseract tesseract english.png output --oem 1 -l eng
 ```
 
-## Image conditions
+## Image conditions :white_check_mark:
 
 - Only supported target for this docker image currently is `linux/amd64`.
 - Working directory for ocr images is `/tmp` inside the container. See example above.
@@ -94,14 +94,14 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
   - German: `tessdata_best > deu.traineddata`
   - If you need other languages, you have to build your own image or mount trained data to the `/usr/local/share/tessdata/` directory. See example above.
 
-## Tesseract Trained Data for all available langauges
+## Tesseract Trained Data for all available languages :weight_lifting:
 
 - Overview of supported languages <https://tesseract-ocr.github.io/tessdoc/Data-Files-in-different-versions.html>
 - Trained models with support for legacy and LSTM OCR engine <https://github.com/tesseract-ocr/tessdata>
 - Fast integer versions of trained LSTM models <https://github.com/tesseract-ocr/tessdata_fast>
 - Best (most accurate) trained LSTM models <https://github.com/tesseract-ocr/tessdata_best>
 
-## Further documentation
+## Further documentation :link:
 
 - Docker Hub: <https://hub.docker.com/repository/docker/franky1/tesseract>
 - Original Tesseract Github Repository: <https://github.com/tesseract-ocr/tesseract>
@@ -109,14 +109,12 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
 - Original Tesseract Manual: <https://tesseract-ocr.github.io/tessdoc/>
 - More `tessdata_best` languages: <https://github.com/tesseract-ocr/tessdata_best>
 
-## ToDo
+## ToDo :white_check_mark:
 
 - [x] Update `README.md` to latest Dockerfile and Usage
-- [x] add `workflow_dispatch` to github workflows
 - [x] Add dependabot on Github
 - [x] Add vulnerability scanning in Github Actions with Snyk
 - [ ] Add GitHub Action for check container efficiency with Dive <https://github.com/MartinHeinz/dive-action>
-- [x] Add badges to `README.md`
 - [ ] Add documentation for GitHub Actions Workflow
 - [ ] Add more inline comments in GitHub Actions related files
 - [ ] Build image for more targets
@@ -124,12 +122,10 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
 - [ ] Building Tesseract with Training tools?
 - [ ] Change build in Dockerfile according to instructions in [Compiling-GitInstallation.md](Compiling-GitInstallation.md)
 
-## Issues
-
-- [ ] `27.07.2022` currently the build of the main source branch fails, reason is unknown
+## Issues :bug:
 
 If you have any bugs or requests regarding this Docker image, please post an issue in this Github Repository.
 
-## Project status
+## Project status :heavy_check_mark:
 
 > 27.07.2022: Docker Image is ready for usage, still some slight improvements possible, sometimes build issues
