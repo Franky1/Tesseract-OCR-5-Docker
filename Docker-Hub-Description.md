@@ -4,7 +4,7 @@
 ![Docker](https://img.shields.io/docker/v/franky1/tesseract?logo=docker)
 ![Docker](https://img.shields.io/docker/v/franky1/tesseract?sort=semver&logo=docker)
 
-# Tesseract OCR
+# Tesseract OCR :scroll:
 
 Docker Image with latest Tesseract OCR Version 5.x.x built from sources.
 
@@ -18,7 +18,7 @@ GitHub Repository: <https://github.com/Franky1/Tesseract-OCR-5-Docker>
 
 `5.x.x` : Whenever there is a new release of Tesseract OCR 5.x.x., the sources from this release are pulled and the image is built and tagged accordingly. Checking for new releases is done on a daily basis.
 
-## Usage
+## Usage :hammer_and_wrench:
 
 ### Pull Docker Image
 
@@ -43,7 +43,7 @@ docker run -it -v ${PWD}/testdata:/tmp --rm franky1/tesseract \
 
 For the Tesseract command line options, please refer to the [Tesseract Manual](https://tesseract-ocr.github.io/tessdoc/)
 
-### Mount more languages
+### Mount more languages :speaking_head:
 
 ```text
 see GitHub Repository for better understanding of the steps below
@@ -85,19 +85,19 @@ docker run -it -v ${PWD}/testdata:/tmp \
 - Fast integer versions of trained LSTM models <https://github.com/tesseract-ocr/tessdata_fast>
 - Best (most accurate) trained LSTM models <https://github.com/tesseract-ocr/tessdata_best>
 
-## Further documentation
+## Further documentation :link:
 
 - GitHub Repository for this Docker Image: <https://github.com/Franky1/Tesseract-OCR-5-Docker>
 - Original Tesseract Github Repository: <https://github.com/tesseract-ocr/tesseract>
 - Original Tesseract Documentation: <https://tesseract-ocr.github.io/>
 - Original Tesseract Manual: <https://tesseract-ocr.github.io/tessdoc/>
 
-## Issues
+## Issues :bug:
 
 If you have any bugs or requests regarding this Docker image, please post an issue in the Github Repository:
 <https://github.com/Franky1/Tesseract-OCR-5-Docker>
 
-## Project status
+## Project status :heavy_check_mark:
 
 ```text
 22.03.2022: Docker Image is ready for usage, still some slight improvements possible (see GitHub Repo)
