@@ -83,7 +83,7 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
   tesseract tesseract english.png output --oem 1 -l eng
 ```
 
-## Image conditions :white_check_mark:
+## Image conditions :ballot_box_with_check:
 
 - Only supported target for this docker image currently is `linux/amd64`.
 - Working directory for ocr images is `/tmp` inside the container. See example above.
