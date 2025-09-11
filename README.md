@@ -64,18 +64,15 @@ For details have a look into the [Dockerfile](Dockerfile).
 
 1. Git clone this repo.
 2. Add your required languages to the [languages.txt](languages.txt) file.
-3. (a) Build the docker image from scratch, if you want the latest sources from the `main` branch.
-
-```bash
-docker build --tag tesseract .
-```
-
-3. (b) Build the docker image from scratch, if you want a specific `release` version.
-
-```bash
-docker build --tag tesseract --build-arg TESSERACT_VERSION=5.0.0 .
-```
-
+3. Build the docker image.
+    - To build with the `main` branch of Tesseract:
+      ```bash
+      docker build --tag tesseract .
+      ```
+    - To build with a specific `release` version of Tesseract:
+      ```bash
+      docker build --tag tesseract --build-arg TESSERACT_VERSION=5.0.0 .
+      ```
 4. Run Tesseract OCR container with test image:
 
 ```bash
@@ -114,13 +111,13 @@ docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm \
 - [x] Update `README.md` to latest Dockerfile and Usage
 - [x] Add dependabot on Github
 - [x] Add vulnerability scanning in Github Actions with Snyk
+- [x] Use multi-stage build in Dockerfile and clone from git
 - [ ] Add GitHub Action for check container efficiency with Dive <https://github.com/MartinHeinz/dive-action>
 - [ ] Add documentation for GitHub Actions Workflow
 - [ ] Add more inline comments in GitHub Actions related files
 - [ ] Build image for more targets
 - [ ] Building Tesseract with TensorFlow?
 - [ ] Building Tesseract with Training tools?
-- [ ] Change build in Dockerfile according to instructions in [Compiling-GitInstallation.md](Compiling-GitInstallation.md)
 
 ## Issues :bug:
 
@@ -128,4 +125,4 @@ If you have any bugs or requests regarding this Docker image, please post an iss
 
 ## Project status :heavy_check_mark:
 
-> 27.07.2022: Docker Image is ready for usage, still some slight improvements possible, sometimes build issues
+> 11.09.2024: Docker Image is ready for usage, still some slight improvements possible, sometimes build issues
