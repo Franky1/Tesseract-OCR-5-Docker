@@ -1,3 +1,9 @@
+"""
+Check upstream tesseract-ocr/tesseract for new default-branch commits or
+stable 5.x releases, write MAIN.json/RELEASE.json, and update/commit VERSION.ini
+in this repo via the GitHub API. Requires a GITHUB_TOKEN in the environment.
+"""
+
 import json
 import os
 from configparser import ConfigParser
@@ -6,7 +12,7 @@ from github import Github
 
 
 # read github token from os env
-GITHUB_TOKEN = os.environ.get('GITHUB_TOKEN')
+GITHUB_TOKEN = os.environ.get("GITHUB_TOKEN")
 
 # check if token is set
 assert GITHUB_TOKEN, "GITHUB_TOKEN could not be loaded from env"
@@ -27,7 +33,7 @@ try:
     decoded_contents = ini_file_contents.decoded_content.decode("utf-8")
 except Exception as e:
     print(e)
-    print(f'Could not find file {ini_file_name} in the repository')
+    print(f"Could not find file {ini_file_name} in the repository")
     ini_file_exists = False
 else:
     config_object.read_string(decoded_contents)
@@ -58,20 +64,20 @@ if version.get("main") != default_branch.commit.sha:
 
 # get version for latest relase
 if version.get("release") != latest_release.tag_name:
-    if latest_release.prerelease == False:
-        if latest_release.draft == False:
+    if not latest_release.prerelease:
+        if not latest_release.draft:
             if latest_release.tag_name.startswith("5."):
-                if 'rc' not in latest_release.tag_name.lower():
-                        print("New release found:", latest_release.tag_name)
-                        update = True
-                        release_data["tag"] = latest_release.tag_name
-                        release_data["version"] = latest_release.tag_name
-                        release_data["url"] = latest_release.tarball_url
+                if "rc" not in latest_release.tag_name.lower():
+                    print("New release found:", latest_release.tag_name)
+                    update = True
+                    release_data["tag"] = latest_release.tag_name
+                    release_data["version"] = latest_release.tag_name
+                    release_data["url"] = latest_release.tarball_url
 
-with open("MAIN.json", "w") as f:
+with open("MAIN.json", "w", encoding="utf-8") as f:
     json.dump(main_data, f, indent=4)
 
-with open("RELEASE.json", "w") as f:
+with open("RELEASE.json", "w", encoding="utf-8") as f:
     json.dump(release_data, f, indent=4)
 
 if update:
@@ -82,15 +88,24 @@ if update:
         "updated_at": remote_repo.updated_at,
         "pushed_at": remote_repo.pushed_at,
     }
-    with open(ini_file_name, 'w') as conf:
+    with open(ini_file_name, "w", encoding="utf-8") as conf:
         config_object.write(conf)
-    with open(ini_file_name) as f:
+    with open(ini_file_name, encoding="utf-8") as f:
         content = f.read()
     if ini_file_exists:
         # update file in repo
-        own_repo.update_file(path=ini_file_name, message=f'Auto Update of {ini_file_name}', content=content, sha=ini_file_contents.sha)
+        own_repo.update_file(
+            path=ini_file_name,
+            message=f"Auto Update of {ini_file_name}",
+            content=content,
+            sha=ini_file_contents.sha,
+        )
     else:
         # create file if it not exists in repo
-        own_repo.create_file(path=ini_file_name, message=f'Auto Creation of {ini_file_name}', content=content)
+        own_repo.create_file(
+            path=ini_file_name,
+            message=f"Auto Creation of {ini_file_name}",
+            content=content,
+        )
 else:
     print("Update NOT necessary")
