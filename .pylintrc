@@ -1,0 +1,9 @@
+[MAIN]
+disable=
+    C0103, # invalid-name
+    R1734, # use-list-literal
+    R1735, # use-dict-literal
+    W0718, # catching too general exception
+
+[FORMAT]
+max-line-length=160
