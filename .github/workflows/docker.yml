@@ -1,7 +1,7 @@
 name: Docker Builds
 
 on:
-  # call workflow from other workflow
+  # This workflow can be called from other workflows.
   workflow_call:
     inputs:
       BRANCH:
@@ -19,27 +19,19 @@ on:
         required: true
       DOCKERHUB_PASSWORD:
         required: true
-  # manually trigger the workflow
-  # TODO: deactivate this for now, as it is not working
-  # workflow_dispatch:
-  #   inputs:
-  #     BRANCH:
-  #       required: true
-  #       type: string
-  #       description: The github branch to build from
-  #       default: 'main'
-  #     TAG:
-  #       required: true
-  #       type: string
-  #       description: The docker tag to build
-  #       default: 'latest'
-  #   secrets:
-  #     SNYK_TOKEN:
-  #       required: true
-  #     DOCKERHUB_USERNAME:
-  #       required: true
-  #     DOCKERHUB_PASSWORD:
-  #       required: true
+  # This workflow can be triggered manually.
+  workflow_dispatch:
+    inputs:
+      BRANCH:
+        required: true
+        type: string
+        description: The github branch to build from
+        default: 'main'
+      TAG:
+        required: true
+        type: string
+        description: The docker tag to build
+        default: 'latest'
 
 jobs:
   Docker:
@@ -51,10 +43,15 @@ jobs:
           echo "TAG --> ${{ inputs.TAG }}"
 
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5.0.0
 
       - name: Build the Docker Image
-        run: docker build --tag franky1/tesseract:${{ inputs.TAG }} --build-arg TESSERACT_VERSION=${{ inputs.BRANCH }} .
+        run: docker build --progress=plain --tag franky1/tesseract:${{ inputs.TAG }} --build-arg TESSERACT_VERSION=${{ inputs.BRANCH }} .
+
+      - name: Analyze image efficiency
+        uses: yuichielectric/dive-action@0.0.4
+        with:
+          image: franky1/tesseract:${{ inputs.TAG }}
 
       - name: Run the Docker Container
         run: docker run --rm franky1/tesseract:${{ inputs.TAG }}
@@ -64,22 +61,21 @@ jobs:
 
       - name: Run Snyk to check Docker image for vulnerabilities
         continue-on-error: true
-        uses: snyk/actions/docker@master
+        uses: snyk/actions/docker@0.4.0
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
           image: franky1/tesseract:${{ inputs.TAG }}
-          args: --file=Dockerfile
+          args: --file=Dockerfile --sarif-file-output=snyk.sarif
 
-# Disabled Snyk Report upload, does not work anymore for unknown reasons...
-#      - name: Upload Snyk report to GitHub
-#        uses: github/codeql-action/upload-sarif@v2
-#        with:
-#          sarif_file: snyk.sarif
-#          category: snyk-docker-${{ inputs.TAG }}
+      - name: Upload Snyk report to GitHub
+        uses: github/codeql-action/upload-sarif@v3.30.3
+        with:
+          sarif_file: snyk.sarif
+          category: snyk-docker-${{ inputs.TAG }}
 
       - name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3.5.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -88,7 +84,7 @@ jobs:
         run: docker push franky1/tesseract:${{ inputs.TAG }}
 
       - name: Docker Hub Description Update
-        uses: peter-evans/dockerhub-description@v4
+        uses: peter-evans/dockerhub-description@v4.0.2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}

@@ -1,67 +1,72 @@
-# Debian 12 aka Bookworm
-FROM debian:12
+# Stage 1: Build Tesseract
+FROM debian:12 AS builder
 
 ARG TESSERACT_VERSION="main"
-ARG TESSERACT_URL="https://api.github.com/repos/tesseract-ocr/tesseract/tarball/$TESSERACT_VERSION"
 
-# install basic tools
-RUN apt-get update && apt-get install --no-install-recommends --yes \
-    apt-transport-https \
-    asciidoc \
+# Install build dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
     automake \
-    bash \
     ca-certificates \
-    curl \
-    docbook-xsl \
     g++ \
     git \
-    libleptonica-dev \
     libtool \
+    libleptonica-dev \
     libicu-dev \
     libpango1.0-dev \
     libcairo2-dev \
     make \
     pkg-config \
-    wget \
-    xsltproc \
-    && rm -rf /var/lib/apt/lists/*
+    asciidoc \
+    docbook-xsl \
+    xsltproc
 
+# Clone Tesseract repository
 WORKDIR /src
+RUN git clone --depth 1 --branch ${TESSERACT_VERSION} https://github.com/tesseract-ocr/tesseract.git tesseract-ocr
 
-RUN wget -qO tesseract.tar.gz $TESSERACT_URL && \
-    tar -xzf tesseract.tar.gz && \
-    rm tesseract.tar.gz && \
-    mv tesseract-* tesseract
-
-WORKDIR /src/tesseract
-
+# Build and install Tesseract
+WORKDIR /src/tesseract-ocr
 RUN ./autogen.sh && \
     ./configure && \
     make && \
     make install && \
     ldconfig
 
-# go to default traineddata directory
+# Stage 2: Final image
+FROM debian:12
+
+# Install runtime dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    liblept5 \
+    libicu72 \
+    libpango-1.0-0 \
+    libcairo2 \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy Tesseract from builder stage
+COPY --from=builder /usr/local/bin/ /usr/local/bin/
+COPY --from=builder /usr/local/lib/ /usr/local/lib/
+COPY --from=builder /usr/local/share/ /usr/local/share/
+
+# Update library cache
+RUN ldconfig
+
+# Download language data
 WORKDIR /usr/local/share/tessdata/
-
-# copy language script and list to image
-COPY get-languages.sh .
 COPY languages.txt .
+COPY get-languages.sh .
+RUN chmod +x ./get-languages.sh && ./get-languages.sh
 
-# make script executable
-RUN chmod +x ./get-languages.sh
-# download traineddata languages
-RUN ./get-languages.sh
-
-# go to user input/output folder
+# Set user input/output folder
 WORKDIR /tmp/
 
-# CMD ["tesseract", "--version"]
-CMD ["tesseract", "--list-langs"]
+CMD ["tesseract", "--version"]
 
-# docker pull debian:11
-# docker build --tag tesseract:latest --build-arg TESSERACT_VERSION=main .
-# docker build --tag tesseract:5.0.0 --build-arg TESSERACT_VERSION=5.0.0 .
+# Some examples how to use this image
+# docker pull debian:12
+# docker build --progress=plain --tag tesseract:latest --build-arg TESSERACT_VERSION=main .
+# docker build --progress=plain --tag tesseract:5.0.0 --build-arg TESSERACT_VERSION=5.0.0 .
 # docker run -it --rm tesseract:latest
 # docker run -it --rm tesseract:5.0.0
 # docker run -it --name tesseract --rm tesseract /bin/bash

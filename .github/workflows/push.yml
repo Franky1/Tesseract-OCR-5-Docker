@@ -1,16 +1,12 @@
 name: Push Event
 
 on:
-  # push:
-  #   branches:
-  #     - main
-  # pull_request:
-  #   branches:
-  #     - main
-  # manually trigger the workflow
-  workflow_dispatch:
+  # run on push to main
+  push:
     branches:
       - main
+  # allow manual trigger from any branch (no branch filters supported here)
+  workflow_dispatch:
 
 jobs:
   Linter:

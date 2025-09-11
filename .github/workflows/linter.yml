@@ -16,8 +16,6 @@ on:
         default: 'main'
   # manually trigger the workflow
   workflow_dispatch:
-    branches:
-      - main
     inputs:
       BRANCH:
         required: true
@@ -30,13 +28,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5.0.0
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better analysis
 
       - name: Lint Code Base
-        uses: github/super-linter/slim@v6
+        uses: github/super-linter/slim@v7
         env:
-          # DEFAULT_BRANCH: ${{ github.events.inputs.BRANCH }}
-          DEFAULT_BRANCH: ${{ github.ref_name }}
+          # Determine the correct base branch:
+          # - For pull_request events: use the PR base (e.g., 'main')
+          # - Else: prefer provided input BRANCH, then repo default, then 'main'
+          DEFAULT_BRANCH: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.ref || inputs.BRANCH || github.event.repository.default_branch || 'main' }}
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_MARKDOWN: true
           VALIDATE_DOCKERFILE: true

@@ -100,5 +100,5 @@ If you have any bugs or requests regarding this Docker image, please post an iss
 ## Project status ✔️
 
 ```text
-22.03.2022: Docker Image is ready for usage, still some slight improvements possible (see GitHub Repo)
+11.09.2025: Docker Image is ready for usage, still some slight improvements possible (see GitHub Repo)
 ```
