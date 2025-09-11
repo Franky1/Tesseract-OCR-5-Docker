@@ -43,7 +43,7 @@ jobs:
           echo "TAG --> ${{ inputs.TAG }}"
 
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5.0.0
 
       - name: Build the Docker Image
         run: docker build --progress=plain --tag franky1/tesseract:${{ inputs.TAG }} --build-arg TESSERACT_VERSION=${{ inputs.BRANCH }} .
@@ -61,7 +61,7 @@ jobs:
 
       - name: Run Snyk to check Docker image for vulnerabilities
         continue-on-error: true
-        uses: snyk/actions/docker@0.3.0
+        uses: snyk/actions/docker@0.4.0
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
         with:
@@ -69,13 +69,13 @@ jobs:
           args: --file=Dockerfile --sarif-file-output=snyk.sarif
 
       - name: Upload Snyk report to GitHub
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v3.30.3
         with:
           sarif_file: snyk.sarif
           category: snyk-docker-${{ inputs.TAG }}
 
       - name: Login to DockerHub
-        uses: docker/login-action@v3
+        uses: docker/login-action@v3.5.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
@@ -84,7 +84,7 @@ jobs:
         run: docker push franky1/tesseract:${{ inputs.TAG }}
 
       - name: Docker Hub Description Update
-        uses: peter-evans/dockerhub-description@v4
+        uses: peter-evans/dockerhub-description@v4.0.2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}

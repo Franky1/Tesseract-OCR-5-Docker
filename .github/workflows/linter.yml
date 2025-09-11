@@ -16,8 +16,6 @@ on:
         default: 'main'
   # manually trigger the workflow
   workflow_dispatch:
-    branches:
-      - main
     inputs:
       BRANCH:
         required: true
@@ -30,10 +28,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5.0.0
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better analysis
 
       - name: Lint Code Base
-        uses: github/super-linter/slim@v5
+        uses: github/super-linter/slim@v7
         env:
           # DEFAULT_BRANCH: ${{ github.events.inputs.BRANCH }}
           DEFAULT_BRANCH: ${{ github.ref_name }}
