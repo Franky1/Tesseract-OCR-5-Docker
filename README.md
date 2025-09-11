@@ -67,11 +67,11 @@ For details have a look into the [Dockerfile](Dockerfile).
 3. Build the docker image.
     - To build with the `main` branch of Tesseract:
       ```bash
-      docker build --tag tesseract .
+      docker build --progress=plain --tag tesseract .
       ```
     - To build with a specific `release` version of Tesseract:
       ```bash
-      docker build --tag tesseract --build-arg TESSERACT_VERSION=5.0.0 .
+      docker build --progress=plain --tag tesseract --build-arg TESSERACT_VERSION=5.0.0 .
       ```
 4. Run Tesseract OCR container with test image:
 
@@ -125,4 +125,4 @@ If you have any bugs or requests regarding this Docker image, please post an iss
 
 ## Project status :heavy_check_mark:
 
-> 11.09.2024: Docker Image is ready for usage, still some slight improvements possible, sometimes build issues
+> 11.09.2025: Docker Image is ready for usage, still some slight improvements possible, sometimes build issues

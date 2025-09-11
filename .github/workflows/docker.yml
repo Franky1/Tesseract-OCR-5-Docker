@@ -46,7 +46,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build the Docker Image
-        run: docker build --tag franky1/tesseract:${{ inputs.TAG }} --build-arg TESSERACT_VERSION=${{ inputs.BRANCH }} .
+        run: docker build --progress=plain --tag franky1/tesseract:${{ inputs.TAG }} --build-arg TESSERACT_VERSION=${{ inputs.BRANCH }} .
 
       - name: Analyze image efficiency
         uses: yuichielectric/dive-action@0.0.4

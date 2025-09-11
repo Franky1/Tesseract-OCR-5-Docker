@@ -54,11 +54,21 @@ RUN ldconfig
 
 # Download language data
 WORKDIR /usr/local/share/tessdata/
-COPY get-languages.sh .
 COPY languages.txt .
+COPY get-languages.sh .
 RUN chmod +x ./get-languages.sh && ./get-languages.sh
 
 # Set user input/output folder
 WORKDIR /tmp/
 
-CMD ["tesseract", "--list-langs"]
+CMD ["tesseract", "--version"]
+
+# Some examples how to use this image
+# docker pull debian:12
+# docker build --progress=plain --tag tesseract:latest --build-arg TESSERACT_VERSION=main .
+# docker build --progress=plain --tag tesseract:5.0.0 --build-arg TESSERACT_VERSION=5.0.0 .
+# docker run -it --rm tesseract:latest
+# docker run -it --rm tesseract:5.0.0
+# docker run -it --name tesseract --rm tesseract /bin/bash
+# docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm tesseract /bin/bash
+# docker run -it --name tesseract -v ${PWD}/testdata:/tmp --rm tesseract tesseract english.png output --oem 1 -l eng
