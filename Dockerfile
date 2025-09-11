@@ -1,5 +1,5 @@
 # Stage 1: Build Tesseract
-FROM debian:12 AS builder
+FROM debian:13 AS builder
 
 ARG TESSERACT_VERSION="main"
 
@@ -33,7 +33,7 @@ RUN ./autogen.sh && \
     ldconfig
 
 # Stage 2: Final image
-FROM debian:12
+FROM debian:13
 
 # Install runtime dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
