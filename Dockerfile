@@ -18,7 +18,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     pkg-config \
     asciidoc \
     docbook-xsl \
-    xsltproc
+    docbook-xml \
+    xsltproc \
+    && export XML_CATALOG_FILES="/etc/xml/catalog"
 
 # Clone Tesseract repository
 WORKDIR /src
