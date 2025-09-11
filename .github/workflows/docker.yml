@@ -68,10 +68,27 @@ jobs:
           image: franky1/tesseract:${{ inputs.TAG }}
           args: --file=Dockerfile --sarif-file-output=snyk.sarif
 
+      - name: Normalize SARIF for GitHub (fix null security-severity)
+        if: always()
+        run: |
+          set -euo pipefail
+          if [ -f "snyk.sarif" ]; then
+            jq 'walk(
+              if type == "object" and has("properties") and .properties["security-severity"] == null
+              then .properties["security-severity"] = 0.0
+              else .
+              end
+            )' snyk.sarif > snyk.fixed.sarif
+            echo "Patched SARIF written to snyk.fixed.sarif"
+          else
+            echo "snyk.sarif not found" >&2
+            exit 1
+          fi
+
       - name: Upload Snyk report to GitHub
         uses: github/codeql-action/upload-sarif@v3.30.3
         with:
-          sarif_file: snyk.sarif
+          sarif_file: snyk.fixed.sarif
           category: snyk-docker-${{ inputs.TAG }}
 
       - name: Login to DockerHub
