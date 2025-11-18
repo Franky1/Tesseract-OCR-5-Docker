@@ -15,7 +15,7 @@ jobs:
       release_version: ${{ steps.release.outputs.version }}
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v5.0.1
       - name: Show Python Version
         run: python --version
       - name: Install PyGithub

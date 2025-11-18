@@ -43,7 +43,7 @@ jobs:
           echo "TAG --> ${{ inputs.TAG }}"
 
       - name: Checkout Code
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v5.0.1
 
       - name: Build the Docker Image
         run: docker build --progress=plain --tag franky1/tesseract:${{ inputs.TAG }} --build-arg TESSERACT_VERSION=${{ inputs.BRANCH }} .
