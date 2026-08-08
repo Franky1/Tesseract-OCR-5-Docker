@@ -78,7 +78,7 @@ jobs:
         run: docker push franky1/tesseract:${{ inputs.TAG }}
 
       - name: Docker Hub Description Update
-        uses: peter-evans/dockerhub-description@v4.0.2
+        uses: peter-evans/dockerhub-description@v5.0.0
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
